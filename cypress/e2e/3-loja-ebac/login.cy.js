@@ -46,7 +46,7 @@ it('Deve fazer login com sucesso - usando massa de dados perfil', () => {
     cy.get('a > .hidden-xs').should('contain', 'Welcome adailton.vini.silva !')
 });
 
-it.only('Deve fazer login com sucesso - usando massa de dados fixture', () => {
+it('Deve fazer login com sucesso - usando massa de dados fixture', () => {
 
     cy.fixture('perfil').then(dados => {
         cy.get('#username').type(dados.usuario ,{log: false})
@@ -58,4 +58,14 @@ it.only('Deve fazer login com sucesso - usando massa de dados fixture', () => {
 
 });
 
+it('Deve fazer login com sucesso - usando comandos customizados', () => {
+    cy.login('adailton.vini.silva@gmail.com' , 'Eumesmo@11060')
+    cy.get('.woocommerce-MyAccount-content > :nth-child(2)').should('contain', 'Olá, adailton.vini.silva (não é adailton.vini.silva? Sair)')
+    cy.get('a > .hidden-xs').should('contain', 'Welcome adailton.vini.silva !')
+});
 
+it.only('Deve fazer login com sucesso - usando comandos customizados + massa de dados', () => {
+    cy.login(teste.usuario , {log: false}, teste.senha , {log: false})
+    cy.get('.woocommerce-MyAccount-content > :nth-child(2)').should('contain', 'Olá, adailton.vini.silva (não é adailton.vini.silva? Sair)')
+    cy.get('a > .hidden-xs').should('contain', 'Welcome adailton.vini.silva !')
+});

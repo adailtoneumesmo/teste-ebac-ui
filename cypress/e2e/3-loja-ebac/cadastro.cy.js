@@ -7,7 +7,7 @@ beforeEach(() => {
     cy.visit('minha-conta')
 });
 
-it('Deve completar o cadastrdo com sucesso', () => {
+it('Deve completar o cadastro com sucesso', () => {
     cy.get('#reg_email').type(faker.internet.email())
     cy.get('#reg_password').type('123@mudar')
     cy.get(':nth-child(4) > .button').click()
@@ -36,6 +36,12 @@ it('Deve completar o cadastro com sucesso - Usando variavis', () => {
     cy.get('#account_first_name').type(nome)
     cy.get('#account_last_name').type(sobrenome)
     cy.get('.woocommerce-Button').click()
+    cy.get('.woocommerce-message').should('exist')
+    cy.get('.woocommerce-message').should('contain', 'Detalhes da conta modificados com sucesso.')
+});
+
+it.only('Deve completar o cadastro com sucesso - usando dados customizados', () => {
+    cy.preCadastro (faker.internet.email() , '123@mudar', faker.person.firstName(), faker.person.lastName())
     cy.get('.woocommerce-message').should('exist')
     cy.get('.woocommerce-message').should('contain', 'Detalhes da conta modificados com sucesso.')
 });
